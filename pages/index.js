@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native-web'
-import Image from 'next/Image'
+import Image from 'next/image'
 
 const App = () => {
   return (
