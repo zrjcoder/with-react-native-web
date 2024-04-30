@@ -1,5 +1,14 @@
+const fs = require('fs')
+const path = require('path')
+
+const pages = fs
+  .readdirSync(path.resolve(__dirname, 'pages'), { withFileTypes: true })
+  .filter((dirent) => dirent.isDirectory())
+  .map((dirent) => dirent.name)
+
 /** @type {import('next').NextConfig} */
 module.exports = {
+  env: { pages },
   experimental: {
     turbo: {
       resolveAlias: {

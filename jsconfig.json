@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "paths": {
+    "/icon": ["/public/icon/*"],
+    "/image": ["/public/image/*"]
+  }
+}
