@@ -9,6 +9,9 @@ const normalizeNextElements = `
     height: 100%;
     background: #EAF0F9;
   }
+  a {
+    text-decoration: none;
+  }
 `
 
 export default class MyDocument extends Document {
