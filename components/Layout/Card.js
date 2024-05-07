@@ -1,33 +1,28 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import { Box, Column, Row, Text } from 'components'
 
-export function Card({ title, style, children }) {
+export function Card({ title, titleIcon, children, ...props }) {
   return (
-    <View
-      style={{
-        backgroundColor: '#FAFBFC',
-        padding: 12,
-        borderRadius: 8,
-        ...style,
-      }}>
+    <Column
+      backgroundColor="#FFFFFF"
+      padding={12}
+      borderRadius={8}
+      box-shadow="0px 1px 12px 0px rgba(16,112,255,0.04)"
+      {...props}>
       {title && (
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignContent: 'center',
-            marginBottom: 12,
-          }}>
-          <View>
-            <Text
-              style={{ fontSize: 16, color: '#333333', fontWeight: 'bold' }}>
+        <Row
+          justifyContent="space-between"
+          alignContent="center"
+          marginBottom={12}>
+          <Row alignItems="center">
+            {titleIcon && <Box paddingRight={4}>{titleIcon}</Box>}
+            <Text fontSize={16} color="#333333" fontWeight="bold">
               {title}
             </Text>
-          </View>
-        </View>
+          </Row>
+        </Row>
       )}
 
-      <View>{children}</View>
-    </View>
+      <Box>{children}</Box>
+    </Column>
   )
 }

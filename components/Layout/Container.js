@@ -1,5 +1,4 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 
 export function Container({ children, style = {} }) {
   return (
@@ -8,6 +7,8 @@ export function Container({ children, style = {} }) {
         flex: 1,
         backgroundColor: '#F3F5F6',
         maxWidth: 500,
+        marginHorizontal: 'auto',
+        overflow: 'auto',
         ...style,
       }}>
       {children}

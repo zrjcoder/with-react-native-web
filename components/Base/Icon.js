@@ -1,12 +1,9 @@
-import React from 'react'
 import { Image } from './Image'
 
 export const Icons = {
   garden: Icon({
     source: '/icon/garden.png',
-  }),
-  garden: Icon({
-    source: '/icon/garden.png',
+    size: 14,
   }),
   maintain: Icon({
     source: '/icon/maintain.png',
@@ -19,6 +16,7 @@ export const Icons = {
   }),
   sanitation: Icon({
     source: '/icon/sanitation.png',
+    size: 14,
   }),
   punch: Icon({
     source: '/icon/punch.png',
@@ -31,6 +29,7 @@ export const Icons = {
   }),
   civicism: Icon({
     source: '/icon/civicism.png',
+    size: 14,
   }),
   task: Icon({
     source: '/icon/task.png',
@@ -43,6 +42,26 @@ export const Icons = {
   }),
   board: Icon({
     source: '/icon/board.png',
+  }),
+  back: Icon({
+    source: '/icon/back.png',
+    size: 16,
+  }),
+  point1: Icon({
+    source: '/icon/point1.png',
+    size: 8,
+  }),
+  point2: Icon({
+    source: '/icon/point2.png',
+    size: 8,
+  }),
+  point3: Icon({
+    source: '/icon/point3.png',
+    size: 8,
+  }),
+  checked: Icon({
+    source: '/icon/checked.png',
+    size: 12,
   }),
 }
 

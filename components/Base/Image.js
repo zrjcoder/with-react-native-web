@@ -1,4 +1,3 @@
-import React from 'react'
 import { Image as BaseImage } from 'react-native'
 
 export function Image({
