@@ -16,7 +16,6 @@ export function TitleText({ title, children, titleStyle, ratio }) {
           flex: ratio,
         }}>
         {children}
-        123
       </Text>
     </Row>
   )

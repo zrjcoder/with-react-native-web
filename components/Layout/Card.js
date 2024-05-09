@@ -6,7 +6,7 @@ export function Card({ title, titleIcon, children, ...props }) {
       backgroundColor="#FFFFFF"
       padding={12}
       borderRadius={8}
-      box-shadow="0px 1px 12px 0px rgba(16,112,255,0.04)"
+      boxShadow="0px 1px 12px 0px rgba(16,112,255,0.04)"
       {...props}>
       {title && (
         <Row
