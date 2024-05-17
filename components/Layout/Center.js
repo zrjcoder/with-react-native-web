@@ -6,6 +6,12 @@ export function Center({
   width,
   backgroundColor = 'transparent',
   children,
+  paddingVertical,
+  paddingHorizontal,
+  marginVertical,
+  marginHorizontal,
+  padding,
+  margin,
   ...props
 }) {
   return (
@@ -15,6 +21,13 @@ export function Center({
         width: size ?? width,
         backgroundColor,
         justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical,
+        paddingHorizontal,
+        marginVertical,
+        marginHorizontal,
+        padding,
+        margin,
         ...props,
       }}>
       {children}

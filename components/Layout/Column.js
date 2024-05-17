@@ -1,11 +1,16 @@
 import { View } from 'react-native'
 
 export function Column({
-  style,
   justifyContent = 'flex-start',
   alignItems = 'stretch',
   backgroundColor = 'transparent',
   children,
+  paddingVertical,
+  paddingHorizontal,
+  marginVertical,
+  marginHorizontal,
+  padding,
+  margin,
   ...props
 }) {
   return (
@@ -13,8 +18,14 @@ export function Column({
       style={{
         flexDirection: 'column',
         justifyContent,
-        backgroundColor,
         alignItems,
+        backgroundColor,
+        paddingVertical,
+        paddingHorizontal,
+        marginVertical,
+        marginHorizontal,
+        padding,
+        margin,
         ...props,
       }}>
       {children}

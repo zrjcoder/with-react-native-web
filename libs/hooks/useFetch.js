@@ -10,11 +10,12 @@ export function useMutation(url) {
     setLoading(true)
 
     try {
-      const data = await httpClient.post(url, params, config)
+      const { result, error, msg } = await httpClient.post(url, params, config)
       setData(data)
+      setError(msg || error)
       setLoading(false)
 
-      return data
+      return result
     } catch (error) {
       setError(error)
       setLoading(false)

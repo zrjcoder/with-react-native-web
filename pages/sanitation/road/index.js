@@ -1,4 +1,12 @@
-import { Card, Container, TitleTextList, Row, Icon, ListView } from 'components'
+import {
+  Card,
+  Container,
+  TitleTextList,
+  Row,
+  Icon,
+  ListView,
+  Ripple,
+} from 'components'
 import { fetchRoadListData, Header } from 'libs'
 import moment from 'moment'
 import Link from 'next/link'
@@ -14,23 +22,25 @@ const SanitationRoad = ({ roadListData }) => {
 
   function Item({ item }) {
     return (
-      <Card margin={12}>
-        <Link href={`./road/${item.id}`}>
-          <Row alignItems="center">
-            <TitleTextList
-              data={{
-                作业时间: item?.scheduleDate
-                  ? moment().format(item.scheduleDate)
-                  : '暂无',
-                作业路段: '暂无',
-                作业类型: item?.type ?? '暂无',
-              }}
-            />
+      <Ripple style={{ margin: 12 }}>
+        <Card>
+          <Link href={`./road/${item.id}`}>
+            <Row alignItems="center">
+              <TitleTextList
+                data={{
+                  作业时间: item?.scheduleDate
+                    ? moment().format(item.scheduleDate)
+                    : '暂无',
+                  作业路段: '暂无',
+                  作业类型: item?.type ?? '暂无',
+                }}
+              />
 
-            <Icon source={'/image/man.png'} size={60} />
-          </Row>
-        </Link>
-      </Card>
+              <Icon source={'/image/man.png'} size={60} />
+            </Row>
+          </Link>
+        </Card>
+      </Ripple>
     )
   }
 }
@@ -38,7 +48,7 @@ const SanitationRoad = ({ roadListData }) => {
 export default SanitationRoad
 
 export const getServerSideProps = async () => {
-  const records = (await fetchRoadListData())?.records ?? []
+  const records = (await fetchRoadListData())?.result?.records ?? []
 
   return {
     props: {

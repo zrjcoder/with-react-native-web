@@ -111,15 +111,15 @@ const SanitationPunch = ({ detail, scheduleTask, range, serverTime }) => {
 export default SanitationPunch
 
 export const getServerSideProps = async () => {
-  const detail = await getPunchClockInfo()
+  const detail = (await getPunchClockInfo())?.result
   const records =
     (
       await getScheduleTask({
         userName: '市政监督员01',
         scheduleTime: moment().format('YYYY-MM-DD'),
       })
-    )?.records ?? []
-  const range = await getPunchRange()
+    )?.result?.records ?? []
+  const range = (await getPunchRange())?.result
 
   return {
     props: {

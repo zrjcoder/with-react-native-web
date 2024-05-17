@@ -6,6 +6,12 @@ export function Row({
   alignItems = 'stretch',
   backgroundColor = 'transparent',
   children,
+  paddingVertical,
+  paddingHorizontal,
+  marginVertical,
+  marginHorizontal,
+  padding,
+  margin,
   ...props
 }) {
   return (
@@ -15,6 +21,12 @@ export function Row({
         justifyContent,
         alignItems,
         backgroundColor,
+        paddingVertical,
+        paddingHorizontal,
+        marginVertical,
+        marginHorizontal,
+        padding,
+        margin,
         ...props,
       }}>
       {children}

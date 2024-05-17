@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Column, Icons, Indictor, Row, Text } from 'components'
-import { ActivityIndicator, TouchableOpacity } from 'react-native-web'
+import { Box, Column, Icons, Ripple, Row, Text } from 'components'
+import { ActivityIndicator } from 'react-native-web'
 
 const config = {
   true: {
@@ -32,7 +32,12 @@ export function FormClockIn({
 
   return (
     <Column alignItems="center">
-      <TouchableOpacity onPress={() => handleClick()}>
+      <Ripple
+        color="#FFFFFF90"
+        style={{
+          borderRadius: 80,
+        }}
+        onPress={handleClick}>
         <Box
           size={113}
           borderRadius={80}
@@ -45,7 +50,7 @@ export function FormClockIn({
               fontSize={18}
               color="#FFFFFF"
               style={{ alignItems: 'center' }}>
-              无法打卡
+              {title}
             </Text>
           )}
 
@@ -59,7 +64,7 @@ export function FormClockIn({
             borderRadius={80}
           />
         </Box>
-      </TouchableOpacity>
+      </Ripple>
 
       {isShowDesc && (
         <Row alignItems="center" marginTop={16}>

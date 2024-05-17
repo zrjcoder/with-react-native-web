@@ -70,4 +70,31 @@ export const routers = [
       },
     ],
   },
+  {
+    title: '运行监测',
+    name: 'monitor',
+    routeName: 'Monitor',
+    modules: [
+      {
+        title: '防汛审核',
+        name: 'check',
+        routeName: 'MonitorCheck',
+      },
+      {
+        title: '待办任务',
+        name: 'todo',
+        routeName: 'MonitorTodo',
+      },
+      {
+        title: '实时监测',
+        name: 'facility',
+        routeName: 'MonitorFacility',
+      },
+      {
+        title: '预警查询',
+        name: 'warning',
+        routeName: 'MonitorWarning',
+      },
+    ],
+  },
 ]

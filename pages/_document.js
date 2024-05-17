@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { Children } from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { AppRegistry } from 'react-native'
@@ -6,11 +7,31 @@ import config from '../app.json'
 const normalizeNextElements = `
   #__next {
     display: flex;
+    width: 100%;
     height: 100%;
-    background: #EAF0F9;
+    overflow: hidden;
+    background: #F7F8FA;
   }
+
   a {
     text-decoration: none;
+  }
+
+  @media only screen and (min-width: 500px) {
+    #__next {
+      background: #EAF0F9;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  *::-webkit-scrollbar {
+    display: none;
   }
 `
 

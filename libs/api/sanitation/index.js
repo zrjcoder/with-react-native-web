@@ -1,4 +1,4 @@
-import { httpClient } from '..'
+import { httpClient } from '../api'
 
 // 公厕
 export const getPunchClockInfo = () =>

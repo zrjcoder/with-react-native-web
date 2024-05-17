@@ -1,3 +1,4 @@
+import { Center } from 'components/Layout'
 import { useState, useEffect, useImperativeHandle, forwardRef } from 'react'
 import {
   Animated,
@@ -8,6 +9,7 @@ import {
   TouchableOpacity,
   RefreshControl,
 } from 'react-native-web'
+import { Ripple } from './Ripple'
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
@@ -60,7 +62,7 @@ export const ListView = forwardRef(
           />
         }
         ListFooterComponent={
-          listData?.length > 10 ? (
+          listData.flat()?.length > 10 ? (
             <LoadMore
               onPress={() => {
                 setPageNum(pageNum + 1)
@@ -84,15 +86,17 @@ export function LoadMore({ onPress, loading }) {
   }
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View>
-        <Text
-          style={{
-            color: '#666666',
-          }}>
-          加载更多数据...
-        </Text>
-      </View>
-    </TouchableOpacity>
+    <Center padding={12}>
+      <Ripple onPress={onPress}>
+        <View>
+          <Text
+            style={{
+              color: '#666666',
+            }}>
+            加载更多数据
+          </Text>
+        </View>
+      </Ripple>
+    </Center>
   )
 }

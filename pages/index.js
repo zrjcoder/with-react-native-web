@@ -1,10 +1,19 @@
-import { TouchableOpacity } from 'react-native'
-
-import { Card, Column, Container, Icons, Image, Row, Text } from 'components'
+import {
+  Card,
+  Column,
+  Container,
+  Icons,
+  Image,
+  Ripple,
+  Row,
+  Text,
+} from 'components'
 import { routers } from 'libs'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const App = () => {
+  const nextRouter = useRouter()
+
   return (
     <Container>
       <Image
@@ -20,11 +29,22 @@ const App = () => {
               key={index}
               title={router.title}
               marginBottom={12}
+              padding={0}
               titleIcon={Icons[router.name]}
+              titleStyle={{
+                paddingHorizontal: 12,
+                paddingTop: 12,
+                marginBottom: 0,
+              }}
               onPress={() => {
                 router.onPress()
               }}>
-              <Modules router={router} />
+              <Modules
+                router={router}
+                onPress={(moduleName) =>
+                  nextRouter.push(`/${router['name']}/${moduleName}`)
+                }
+              />
             </Card>
           )
         })}
@@ -35,25 +55,25 @@ const App = () => {
 
 export default App
 
-function Modules({ router }) {
+function Modules({ router, onPress }) {
   return (
     <Row>
       {router.modules.map((module, index) => (
-        <TouchableOpacity
+        <Ripple
+          onPress={() => onPress(module['name'])}
           key={index}
           style={{
             flexBasis: '25%',
-            flexDirection: 'row',
+            paddingTop: 12,
+            paddingBottom: 12,
           }}>
-          <Link href={`/${router['name']}/${module['name']}`}>
-            <Column alignItems="center">
-              {Icons[module.name]}
-              <Text paddingTop={8} fontSize={12}>
-                {module.title}
-              </Text>
-            </Column>
-          </Link>
-        </TouchableOpacity>
+          <Column alignItems="center">
+            {Icons[module.name]}
+            <Text paddingTop={8} fontSize={12}>
+              {module.title}
+            </Text>
+          </Column>
+        </Ripple>
       ))}
     </Row>
   )
