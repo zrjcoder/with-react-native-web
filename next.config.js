@@ -44,5 +44,6 @@ module.exports = {
     ]
     return config
   },
-  output: 'standalone',
+  // output: 'standalone',
+  output: 'export',
 }

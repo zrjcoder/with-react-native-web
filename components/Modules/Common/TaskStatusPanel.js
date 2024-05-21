@@ -24,7 +24,7 @@ export const TaskStatusPanel = ({
                 <Box size={8} />
                 <Row alignItems="flex-end" marginBottom={4}>
                   <Text fontSize={22} lineHeight={22} marginRight={2}>
-                    {value}
+                    {value ?? 0}
                   </Text>
                   <Text fontSize={13}>{config[key]?.unit}</Text>
                 </Row>

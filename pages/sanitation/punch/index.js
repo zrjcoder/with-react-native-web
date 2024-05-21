@@ -3,13 +3,15 @@ import moment from 'moment'
 
 import { Container } from 'components'
 import {
-  getPunchClockInfo,
-  getPunchRange,
-  getScheduleTask,
+  GET_PUNCH_RANGE,
+  GET_SCHEDULE_TASK,
+  GET_TOILET_LIST,
   Header,
   SAVE_CLOCK_INFO,
   useMutation,
   usePunchClock,
+  useQuery,
+  useUser,
 } from 'libs'
 import {
   SanitationClockPanel,
@@ -18,13 +20,23 @@ import {
   FormClockIn,
 } from 'components/Modules'
 
-const SanitationPunch = ({ detail, scheduleTask, range, serverTime }) => {
+const SanitationPunch = () => {
   const { punchClockInfo, withInTimeRange } = usePunchClock()
+  const { user } = useUser()
+
+  const { data: detail } = useQuery(GET_TOILET_LIST)
+  const { data: range } = useQuery(GET_PUNCH_RANGE)
+
+  const { data: scheduleData } = useQuery(GET_SCHEDULE_TASK, {
+    userName: user?.userName,
+    scheduleTime: moment().format('YYYY-MM-DD'),
+  })
+  const scheduleTask = scheduleData?.records ?? []
 
   const [savePunchClockInfo, { loading }] = useMutation(SAVE_CLOCK_INFO)
 
   React.useEffect(() => {
-    if (scheduleTask.length > 0) {
+    if (scheduleTask.records?.length > 0) {
       withInTimeRange(
         () => {},
         () => {},
@@ -49,12 +61,12 @@ const SanitationPunch = ({ detail, scheduleTask, range, serverTime }) => {
         scheduleTime={scheduleTask.length > 0 ? scheduleTask[0] : null}
       />
 
-      <SanitationCurrentTimer serverTime={serverTime} />
+      <SanitationCurrentTimer />
 
       <FormClockIn
         loading={loading}
         isLimited={false}
-        maxDistance={999999}
+        maxDistance={range}
         title={
           !punchClockInfo?.description
             ? ' 无法打卡'
@@ -109,24 +121,3 @@ const SanitationPunch = ({ detail, scheduleTask, range, serverTime }) => {
 }
 
 export default SanitationPunch
-
-export const getServerSideProps = async () => {
-  const detail = (await getPunchClockInfo())?.result
-  const records =
-    (
-      await getScheduleTask({
-        userName: '市政监督员01',
-        scheduleTime: moment().format('YYYY-MM-DD'),
-      })
-    )?.result?.records ?? []
-  const range = (await getPunchRange())?.result
-
-  return {
-    props: {
-      detail,
-      scheduleTask: records,
-      range,
-      serverTime: new Date().toISOString(),
-    },
-  }
-}

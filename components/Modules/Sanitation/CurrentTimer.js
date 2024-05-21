@@ -1,8 +1,8 @@
 import React from 'react'
 import { Column, Text } from 'components'
 
-export function SanitationCurrentTimer({ serverTime }) {
-  const [currentTime, setCurrentTime] = React.useState(new Date(serverTime))
+export function SanitationCurrentTimer() {
+  const [currentTime, setCurrentTime] = React.useState(new Date())
 
   React.useEffect(() => {
     const interval = setInterval(() => {

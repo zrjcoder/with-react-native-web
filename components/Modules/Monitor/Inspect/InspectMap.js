@@ -1,10 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRef, useEffect } from 'react'
 import { Box } from 'components'
-import { MOBILE_URL, TOKEN } from 'libs'
+import { MOBILE_URL, useUser } from 'libs'
 
-export const MonitorInspectMap = ({ token, points, onPointPress }) => {
+export const MonitorInspectMap = ({ points, onPointPress }) => {
   const mapRef = useRef(null)
+  const { user } = useUser()
+
+  const mapUrl = `${MOBILE_URL}?accessToken=${user?.accessToken}`
 
   useEffect(() => {
     const handleMessage = (event) => {
@@ -12,7 +15,7 @@ export const MonitorInspectMap = ({ token, points, onPointPress }) => {
         const { code, data } = JSON.parse(event.data)
         switch (code) {
           case 'mapLoaded':
-            updateMapPoints()
+            updateMapPoints(points)
             break
           case 'facilityPointClick':
             onPointPress(data.id)
@@ -28,7 +31,7 @@ export const MonitorInspectMap = ({ token, points, onPointPress }) => {
     return () => {
       window.removeEventListener('message', handleMessage)
     }
-  }, [1])
+  }, [])
 
   const updateMapPoints = () => {
     if (points?.length > 0) {
@@ -49,7 +52,7 @@ export const MonitorInspectMap = ({ token, points, onPointPress }) => {
     <Box flex={1}>
       <iframe
         ref={mapRef}
-        src={`${MOBILE_URL}?accessToken=${TOKEN}`}
+        src={mapUrl}
         style={{ width: '100%', height: '100%', border: 'none' }}
         title="WebView"
         onLoad={updateMapPoints}

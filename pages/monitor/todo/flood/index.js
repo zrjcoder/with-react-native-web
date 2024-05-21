@@ -19,12 +19,14 @@ import {
 } from 'libs'
 import { useRouter } from 'next/router'
 
-const MonitorFlood = ({ data }) => {
+const MonitorFlood = () => {
   const router = useRouter()
+  const data = router.query
+
+  const [feedback, setFeedback] = useState('')
   const { location } = useLocation()
   const mediaRef = useRef()
 
-  const [feedback, setFeedback] = useState('')
   const [save, { loading }] = useMutation(SAVE_FLOOD_INFO)
 
   return (
@@ -48,8 +50,8 @@ const MonitorFlood = ({ data }) => {
           <FormClockIn
             loading={loading}
             title={'到岗打卡'}
-            latitude={data.coordY}
-            longitude={data.coordX}
+            latitude={data?.coordY}
+            longitude={data?.coordX}
             onPress={handleSubmit}
           />
         </Box>
@@ -78,16 +80,6 @@ const MonitorFlood = ({ data }) => {
         value: '预警任务多媒体',
       })
     }
-  }
-}
-
-export const getServerSideProps = async (context) => {
-  const data = context.query
-
-  return {
-    props: {
-      data,
-    },
   }
 }
 

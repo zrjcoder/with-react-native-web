@@ -3,18 +3,18 @@ import { TaskStatusPanel } from '../Common'
 import { MonitorItem } from './MonitorItem'
 import { useRouter } from 'next/router'
 
-export const MonitorInspectTab = ({ data }) => {
+export const MonitorInspectTab = ({ data, stat }) => {
   const router = useRouter()
+
+  const floodStat = {
+    doing: stat?.data3,
+    done: stat?.data1,
+    notdo: stat?.data2,
+  }
 
   return (
     <Box flex={1}>
-      <TaskStatusPanel
-        status={{
-          doing: 4,
-          done: 0,
-          notdo: 0,
-        }}
-      />
+      <TaskStatusPanel status={floodStat} />
 
       <ListView
         scrollEnabled

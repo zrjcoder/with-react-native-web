@@ -3,5 +3,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "cSpell.words": ["gsap", "notdo"]
+  "cSpell.words": ["gsap", "municipalmonitor", "notdo"]
 }

@@ -95,11 +95,6 @@ const Login = () => {
         ...result.userInfo,
       })
 
-      await fetch(`/api/token`, {
-        method: 'POST',
-        body: JSON.stringify({ token: result.accessToken }),
-      })
-
       router.push('/')
     }
   }

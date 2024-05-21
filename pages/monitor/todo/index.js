@@ -1,18 +1,22 @@
 import { useState } from 'react'
 import { Box, Container, Tab, Tabs } from 'components'
 import {
-  fetchFloodList,
-  fetchMonitorInspectList,
-  fetchMonitorInspectStat,
+  GET_FLOOD_LIST,
+  GET_INSPECT_LIST,
+  GET_INSPECT_STAT,
   Header,
   useDevice,
+  useQuery,
 } from 'libs'
 import { MonitorInspectTab, MonitorFloodTab } from 'components/Modules'
 
-const MonitorTodo = ({ inspectList, floodList, floodStat }) => {
+const MonitorTodo = () => {
   const [value, setValue] = useState(0)
   const { width } = useDevice()
-  fetchFloodList()
+
+  const { data: inspectList } = useQuery(GET_INSPECT_LIST)
+  const { data: inspectStat } = useQuery(GET_INSPECT_STAT)
+  const { data: floodList } = useQuery(GET_FLOOD_LIST)
 
   return (
     <Container overflow={'hidden'}>
@@ -40,11 +44,14 @@ const MonitorTodo = ({ inspectList, floodList, floodStat }) => {
 
       <Tab.Animated width={width}>
         <Tab.Content>
-          <MonitorFloodTab data={floodList} stat={floodStat} />
+          <MonitorFloodTab data={floodList} />
         </Tab.Content>
 
         <Tab.Content>
-          <MonitorInspectTab data={inspectList} />
+          <MonitorInspectTab
+            data={inspectList?.records ?? []}
+            stat={inspectStat}
+          />
         </Tab.Content>
       </Tab.Animated>
     </Container>
@@ -52,27 +59,3 @@ const MonitorTodo = ({ inspectList, floodList, floodStat }) => {
 }
 
 export default MonitorTodo
-
-export const getServerSideProps = async (context) => {
-  const inspectList =
-    (await fetchMonitorInspectList({ req: context.req }))?.result?.records ?? []
-
-  const floodData = (await fetchFloodList({ req: context.req }))?.result
-  const floodStat = {
-    doing: floodData?.quantityProgress,
-    done: floodData?.quantityComplete,
-    notdo: floodData?.timeoutQuantity,
-  }
-
-  const inspectStat =
-    (await fetchMonitorInspectStat({ req: context.req }))?.result ?? {}
-
-  return {
-    props: {
-      inspectList,
-      floodList: floodData?.warnTasks ?? [],
-      floodStat,
-      inspectStat,
-    },
-  }
-}

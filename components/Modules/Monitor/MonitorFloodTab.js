@@ -3,12 +3,18 @@ import { TaskStatusPanel } from '../Common'
 import { MonitorItem } from './MonitorItem'
 import { useRouter } from 'next/router'
 
-export const MonitorFloodTab = ({ data, stat }) => {
+export const MonitorFloodTab = ({ data }) => {
   const router = useRouter()
+
+  const floodStat = {
+    doing: data?.quantityProgress,
+    done: data?.quantityComplete,
+    notdo: data?.timeoutQuantity,
+  }
 
   return (
     <Box flex={1}>
-      <TaskStatusPanel status={stat} />
+      <TaskStatusPanel status={floodStat} />
 
       <ListView
         scrollEnabled
@@ -16,7 +22,7 @@ export const MonitorFloodTab = ({ data, stat }) => {
         style={{
           marginTop: 6,
         }}
-        data={data}
+        data={data?.warnTasks ?? []}
         renderItem={({ item }) => {
           return (
             <Box marginHorizontal={12} marginBottom={12}>

@@ -74,14 +74,17 @@ export const customFetch = async (
 
   try {
     const response = await fetch(`${BASE_URL}${path}`, config)
-    if (!response.ok) {
-      return null
-    }
-
     const parsedResult = await response.json()
     const code = parsedResult?.code
     const error = parsedResult?.error
     const msg = parsedResult?.msg
+
+    if (code === 101) {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('user')
+        window.location.href = '/login'
+      }
+    }
 
     const result =
       (parsedResult.hasOwnProperty('result')

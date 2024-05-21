@@ -4,9 +4,14 @@ import {
   MonitorInspectPanel,
   RecordDistance,
 } from 'components/Modules'
-import { fetchInspectDetail, Header } from 'libs'
+import { GET_INSPECT_DETAIL, Header, useQuery } from 'libs'
+import { useRouter } from 'next/router'
 
-const MonitorInspect = ({ data }) => {
+const MonitorInspect = () => {
+  const router = useRouter()
+
+  const { data } = useQuery(`${GET_INSPECT_DETAIL}/${router.query.id}`)
+
   return (
     <Container overflow="hidden">
       <Header title={'巡检任务详情'} paddingBottom={6} />
@@ -18,24 +23,9 @@ const MonitorInspect = ({ data }) => {
         <MonitorInspectPanel data={data} />
       </Column>
 
-      <RecordDistance id={data.planId} />
+      <RecordDistance id={data?.planId} />
     </Container>
   )
-}
-
-export const getServerSideProps = async (context) => {
-  const { id } = context.query
-
-  const data = (await fetchInspectDetail({ id, req: context.req }))?.result
-
-  return {
-    props: {
-      data: {
-        ...data,
-        planId: id,
-      },
-    },
-  }
 }
 
 export default MonitorInspect

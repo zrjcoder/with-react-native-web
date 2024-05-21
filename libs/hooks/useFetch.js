@@ -11,7 +11,7 @@ export function useMutation(url) {
 
     try {
       const { result, error, msg } = await httpClient.post(url, params, config)
-      setData(data)
+      setData(result)
       setError(msg || error)
       setLoading(false)
 
@@ -34,15 +34,16 @@ export function useMutation(url) {
   ]
 }
 
-export function useQuery(url) {
+export function useQuery(url, params) {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  async function getData() {
+  async function getData(fullUrl) {
     try {
-      const data = await httpClient.get(url)
-      setData(data)
+      const { result, error, msg } = await httpClient.get(fullUrl)
+      setData(result)
+      setError(msg || error)
       setLoading(false)
     } catch (error) {
       setError(error)
@@ -51,12 +52,18 @@ export function useQuery(url) {
   }
 
   useEffect(() => {
-    getData(url)
-  }, [])
+    const fullUrl = buildUrlWithParams(url, params)
+    getData(fullUrl)
+  }, [url, params])
 
   return {
     loading,
     error,
     data,
   }
+}
+
+function buildUrlWithParams(url, params) {
+  const queryString = new URLSearchParams(params).toString()
+  return queryString ? `${url}?${queryString}` : url
 }

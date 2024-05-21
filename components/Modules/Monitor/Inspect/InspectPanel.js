@@ -47,23 +47,25 @@ export const MonitorInspectPanel = ({ data }) => {
       }>
       <Tab.Animated width={width - 48}>
         <Tab.Content>
-          <MonitorInspectMap
-            onPointPress={(id) => {
-              const currentPoint = points.find(
-                (item) => item.inspectionFacilityId === id
-              )
-              if (currentPoint?.status === 'done') return
+          {points.length > 0 && (
+            <MonitorInspectMap
+              onPointPress={(id) => {
+                const currentPoint = points.find(
+                  (item) => item.inspectionFacilityId === id
+                )
+                if (currentPoint?.status === 'done') return
 
-              router.push({
-                pathname: './inspect/feedback',
-                query: {
-                  taskId: id,
-                  ...currentPoint,
-                },
-              })
-            }}
-            points={points}
-          />
+                router.push({
+                  pathname: './inspect/feedback',
+                  query: {
+                    taskId: id,
+                    ...currentPoint,
+                  },
+                })
+              }}
+              points={points}
+            />
+          )}
         </Tab.Content>
 
         <Tab.Content>

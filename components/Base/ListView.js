@@ -6,10 +6,10 @@ import {
   Text,
   View,
   ActivityIndicator,
-  TouchableOpacity,
   RefreshControl,
 } from 'react-native-web'
 import { Ripple } from './Ripple'
+import jsxRuntime from 'react/jsx-runtime'
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
@@ -52,6 +52,13 @@ export const ListView = forwardRef(
         data={listData.flat()}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
+        ListEmptyComponent={
+          <View>
+            <Text style={{ textAlign: 'center', color: '#666666' }}>
+              暂无数据
+            </Text>
+          </View>
+        }
         refreshControl={
           <RefreshControl
             refreshing={true}

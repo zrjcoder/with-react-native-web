@@ -1,11 +1,13 @@
 import React from 'react'
 import { Container, Picker } from 'components'
-import { fetchRoadDetailData, Header, useLocation } from 'libs'
+import { GET_ROAD_DETAIL, Header, useLocation, useQuery } from 'libs'
 import { Button } from 'react-native-web'
 
-const RoadDetail = ({ data }) => {
+const RoadDetail = () => {
   const { location } = useLocation()
   const ref = React.useRef()
+
+  const { data } = useQuery(GET_ROAD_DETAIL)
 
   return (
     <Container>
@@ -14,15 +16,3 @@ const RoadDetail = ({ data }) => {
   )
 }
 export default RoadDetail
-
-export const getServerSideProps = async (context) => {
-  const { id } = context.query
-
-  const data = (await fetchRoadDetailData(id))?.result
-
-  return {
-    props: {
-      data,
-    },
-  }
-}

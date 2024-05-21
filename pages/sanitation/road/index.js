@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import {
   Card,
   Container,
@@ -7,16 +8,22 @@ import {
   ListView,
   Ripple,
 } from 'components'
-import { fetchRoadListData, Header } from 'libs'
+import { GET_ROAD_LIST, Header, useMutation } from 'libs'
 import moment from 'moment'
 import Link from 'next/link'
 
-const SanitationRoad = ({ roadListData }) => {
+const SanitationRoad = () => {
+  const [getData, { data: roadListData }] = useMutation(GET_ROAD_LIST)
+
+  useEffect(() => {
+    getData()
+  }, [])
+
   return (
     <Container>
       <Header title="道路保洁" />
 
-      <ListView data={roadListData} renderItem={Item} />
+      <ListView data={roadListData?.records ?? []} renderItem={Item} />
     </Container>
   )
 
@@ -46,13 +53,3 @@ const SanitationRoad = ({ roadListData }) => {
 }
 
 export default SanitationRoad
-
-export const getServerSideProps = async () => {
-  const records = (await fetchRoadListData())?.result?.records ?? []
-
-  return {
-    props: {
-      roadListData: records,
-    },
-  }
-}
